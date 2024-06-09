@@ -1,12 +1,17 @@
 package me.yeon.thread.domain;
 
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
+@RedisHash
 @AllArgsConstructor
 public class Room {
 
-	private final int code;
+	@Id
+	private final String code;
 
 	@Getter
 	private final String title;
@@ -14,6 +19,7 @@ public class Room {
 	@Getter
 	private final int capacity;
 
+	@Getter
 	private int participantsCount;
 
 	public int enter() {

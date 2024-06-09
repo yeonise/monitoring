@@ -1,11 +1,19 @@
 package me.yeon.thread.domain;
 
-import lombok.AllArgsConstructor;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.redis.core.RedisHash;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@RedisHash
 @AllArgsConstructor
 public class User {
 
-	private final int sessionCode;
+	@Id
+	private final String sessionCode;
+
+	@Getter
 	private final String nickname;
 
 }

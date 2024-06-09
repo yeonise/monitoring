@@ -1,0 +1,6 @@
+cookie:
+  name: session
+  domain: localhost
+  path: /
+  sameSite: None
+  expiry: 86400

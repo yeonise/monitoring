@@ -6,6 +6,8 @@ import lombok.Getter;
 @AllArgsConstructor
 public class Chat {
 
+	private final MessageType messageType = MessageType.CHAT;
+
 	@Getter
 	private final String content;
 

@@ -9,15 +9,15 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import lombok.RequiredArgsConstructor;
-import me.yeon.thread.util.resolver.SessionArgumentResolver;
-import me.yeon.thread.util.interceptor.SessionInterceptor;
+import me.yeon.thread.util.resolver.SessionCodeArgumentResolver;
+import me.yeon.thread.util.interceptor.SessionCodeInterceptor;
 
 @Configuration
 @RequiredArgsConstructor
 public class WebConfig implements WebMvcConfigurer {
 
-	private final SessionInterceptor sessionInterceptor;
-	private final SessionArgumentResolver sessionArgumentResolver;
+	private final SessionCodeInterceptor sessionCodeInterceptor;
+	private final SessionCodeArgumentResolver sessionCodeArgumentResolver;
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
@@ -30,13 +30,13 @@ public class WebConfig implements WebMvcConfigurer {
 
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(sessionInterceptor)
+		registry.addInterceptor(sessionCodeInterceptor)
 			.addPathPatterns("/**");
 	}
 
 	@Override
 	public void addArgumentResolvers(List<HandlerMethodArgumentResolver> resolvers) {
-		resolvers.add(sessionArgumentResolver);
+		resolvers.add(sessionCodeArgumentResolver);
 	}
 
 }

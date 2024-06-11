@@ -12,7 +12,7 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 import jakarta.servlet.http.HttpServletRequest;
 
 @Component
-public class SessionArgumentResolver implements HandlerMethodArgumentResolver {
+public class SessionCodeArgumentResolver implements HandlerMethodArgumentResolver {
 
 	@Override
 	public boolean supportsParameter(MethodParameter parameter) {

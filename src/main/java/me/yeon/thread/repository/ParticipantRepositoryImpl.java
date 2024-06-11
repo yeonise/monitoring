@@ -3,11 +3,9 @@ package me.yeon.thread.repository;
 import static me.yeon.thread.util.AppConstants.*;
 
 import org.springframework.data.redis.core.StringRedisTemplate;
-import org.springframework.stereotype.Repository;
 
 import lombok.RequiredArgsConstructor;
 
-@Repository
 @RequiredArgsConstructor
 public class ParticipantRepositoryImpl implements ParticipantRepository {
 

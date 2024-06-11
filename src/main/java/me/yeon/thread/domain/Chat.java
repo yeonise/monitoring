@@ -1,20 +1,18 @@
 package me.yeon.thread.domain;
 
+import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
+@Getter
 public class Chat {
 
 	private final MessageType messageType = MessageType.CHAT;
-
-	@Getter
-	private final String content;
-
-	@Getter
-	private final String createdAt;
-
-	@Getter
-	private final String sender;
+	private String content;
+	private String createdAt;
+	private String sender;
 
 }

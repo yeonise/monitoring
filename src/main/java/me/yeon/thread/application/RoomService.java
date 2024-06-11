@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import me.yeon.thread.domain.Room;
 import me.yeon.thread.dto.ParticipantsCount;
 import me.yeon.thread.repository.RoomRepository;
+import me.yeon.thread.util.aop.RoomSynchronized;
 
 @Service
 @RequiredArgsConstructor
@@ -17,7 +18,8 @@ public class RoomService {
 	private final SimpMessageSendingOperations operations;
 	private final RoomRepository roomRepository;
 
-	public synchronized int enter(String sessionCode) {
+	@RoomSynchronized
+	public int enter(String sessionCode) {
 		Room room = roomRepository.findById(DEFAULT_ROOM_CODE)
 			.orElseThrow(() -> new RuntimeException("The room cannot be found."));
 
@@ -32,7 +34,8 @@ public class RoomService {
 		return participantsCount;
 	}
 
-	public synchronized int leave(String sessionCode) {
+	@RoomSynchronized
+	public int leave(String sessionCode) {
 		Room room = roomRepository.findById(DEFAULT_ROOM_CODE)
 			.orElseThrow(() -> new RuntimeException("The room cannot be found."));
 

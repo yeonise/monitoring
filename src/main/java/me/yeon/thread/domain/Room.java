@@ -6,7 +6,7 @@ import org.springframework.data.redis.core.RedisHash;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@RedisHash
+@RedisHash(value = "room")
 @AllArgsConstructor
 public class Room {
 

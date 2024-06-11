@@ -1,12 +1,13 @@
 package me.yeon.thread.controller;
 
+import static me.yeon.thread.util.AppConstants.*;
+
 import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.http.ResponseEntity;
-import org.springframework.messaging.handler.annotation.Header;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.simp.stomp.StompHeaderAccessor;
+import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -28,7 +29,9 @@ public class ChatController {
 	}
 
 	@MessageMapping("/chats")
-	public void sendChat(@Header(StompHeaderAccessor.SESSION_ID_HEADER) String sessionCode, ChatContent chatContent) {
+	public void sendChat(SimpMessageHeaderAccessor headerAccessor, ChatContent chatContent) {
+		String sessionCode = headerAccessor.getSessionAttributes().get(SESSION_ATTRIBUTE_KEY).toString();
+
 		chatService.send(new NewChat(chatContent.getContent(), LocalDateTime.now().toString(), sessionCode));
 	}
 

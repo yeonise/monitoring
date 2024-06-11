@@ -21,14 +21,14 @@ import me.yeon.thread.util.RandomGenerator;
 
 @Component
 @RequiredArgsConstructor
-public class SessionInterceptor implements HandlerInterceptor {
+public class SessionCodeInterceptor implements HandlerInterceptor {
 
 	private final CookieProperties cookieProperties;
 	private final UserRepository userRepository;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-		if (CorsUtils.isCorsRequest(request)) return true;
+		if (CorsUtils.isPreFlightRequest(request)) return true;
 
 		Stream<Cookie> cookieStream = request.getCookies() == null ? Stream.empty() : Stream.of(request.getCookies());
 		String sessionCode = cookieStream
@@ -36,20 +36,21 @@ public class SessionInterceptor implements HandlerInterceptor {
 			.map(Cookie::getValue)
 			.filter(userRepository::existsById)
 			.findAny()
-			.orElseGet(() -> generateSession(request, response));
+			.orElseGet(() -> generateSession(response));
 
 		request.setAttribute(SESSION_ATTRIBUTE_KEY, sessionCode);
-		response.setHeader(HttpHeaders.SET_COOKIE, generateCookie(sessionCode));
 
 		return true;
 	}
 
-	private String generateSession(HttpServletRequest request, HttpServletResponse response) {
+	private String generateSession(HttpServletResponse response) {
 		String sessionCode = RandomGenerator.generateCode(10);
 		String nickname = RandomGenerator.generateNickname();
 
 		User user = new User(sessionCode, nickname);
 		userRepository.save(user);
+
+		response.setHeader(HttpHeaders.SET_COOKIE, generateCookie(sessionCode));
 
 		return sessionCode;
 	}

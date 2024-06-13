@@ -8,7 +8,7 @@ import me.yeon.thread.domain.MessageType;
 @Getter
 public class ThreadStatus {
 
-	private final MessageType messageType = MessageType.THREAD;
+	private final MessageType messageType = MessageType.MONITOR;
 	private final String content;
 
 }

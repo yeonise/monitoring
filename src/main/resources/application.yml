@@ -4,3 +4,12 @@ cookie:
   path: /
   sameSite: None
   expiry: 86400
+
+management:
+  endpoints:
+    web:
+      base-path: /monitor
+      exposure:
+        include: metrics
+  server:
+    port: 9000
